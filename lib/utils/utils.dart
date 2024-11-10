@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sbmela/utils/prefrence.dart';
 
 
 
@@ -22,13 +23,13 @@ class Utils {
   //   return formatter.format(parsedDate);
   // }
   //
-  // Future<String?> getToken() async {
-  //   String? token = await PreferenceManager.instance.getString(TOKEN);
-  //   if (token == null || token.isEmpty) {
-  //     return null;
-  //   }
-  //   return token;
-  // }
+  Future<String?> getToken() async {
+    String? token = await PreferenceManager.instance.getString(AMBESDERID);
+    if (token == null || token.isEmpty) {
+      return null;
+    }
+    return token;
+  }
 
 
   // Static method to show a snackbar
@@ -47,9 +48,7 @@ class Utils {
 
   void showLoading() {
       Get.dialog(
-          const Center(
-            child: CircularProgressIndicator(),
-          )
+          const Center(child: CircularProgressIndicator(color: Colors.white,))
       );
 
   }

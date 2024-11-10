@@ -31,7 +31,7 @@ class Assets {
   String calender = 'assets/images/calender.svg';
   String address = 'assets/images/address.svg';
   String phone = 'assets/images/phone.svg';
-  String user = 'assets/images/user.svg';
   String email = 'assets/images/email.svg';
-  
+  String user = 'assets/images/user.png';
+
 }

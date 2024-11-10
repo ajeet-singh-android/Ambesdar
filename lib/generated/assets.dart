@@ -5,5 +5,6 @@ class Assets {
   static const String fontsAbeze = 'assets/fonts/abeze.ttf';
   static const String imagesLogo = 'assets/images/logo.jpg';
   static const String imagesPhone = 'assets/images/phone.svg';
+  static const String imagesUser = 'assets/images/user.png';
 
 }

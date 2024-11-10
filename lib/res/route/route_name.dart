@@ -7,6 +7,7 @@ class RouteName{
   static const String selfiScreen = "/selfiScreen";
   static const String pickupDropLocationScreen = "/pickupDropLocationScreen";
   static const String picUploadScreen = "/picUploadScreen";
+  static const String trackScreen = "/trackScreen";
 
 
 }

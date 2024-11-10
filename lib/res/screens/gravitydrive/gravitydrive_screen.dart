@@ -9,6 +9,7 @@ import '../../components/app_style.dart';
 import '../../components/custom_buttton.dart';
 import '../../components/custom_text.dart';
 import '../../route/route_name.dart';
+import '../login/login_controller.dart';
 
 class GravitydriveScreen extends StatefulWidget {
   const GravitydriveScreen({super.key});
@@ -18,6 +19,15 @@ class GravitydriveScreen extends StatefulWidget {
 }
 
 class _GravitydriveScreenState extends State<GravitydriveScreen> {
+
+  late LoginController _controller;
+
+  @override
+  void initState() {
+    _controller = Get.put(LoginController());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(
@@ -44,7 +54,26 @@ class _GravitydriveScreenState extends State<GravitydriveScreen> {
             }),
           ),
 
+          const Spacer(),
 
+          Container(
+            height: 60,
+            margin: const EdgeInsets.symmetric(horizontal: 15),
+            color: Colors.grey.withOpacity(.4),
+            child: Row(
+              children: [
+                const Icon(Icons.location_on,color: Colors.white,size: 31,),
+                15.width,
+               Obx(()=> CustomText(
+                  _controller.currentLocation.value,
+                  style: AppStyles.instance.h4.copyWith(color: Colors.white),
+                  maxLines: 10,
+                )),
+              ],
+            ),
+          ),
+
+            (rheight*.05).height,
 
         ],
       ).paddingSymmetric(horizontal: rwidth*.05),

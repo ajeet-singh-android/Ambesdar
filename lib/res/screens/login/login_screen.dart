@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:sbmela/res/components/app_style.dart';
 import 'package:sbmela/res/components/custom_text.dart';
+import 'package:sbmela/res/screens/login/login_controller.dart';
 import 'package:sbmela/utils/sizes.dart';
 
 import '../../../main.dart';
@@ -19,6 +20,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  late LoginController _controller;
+
+  @override
+  void initState() {
+    _controller = Get.put(LoginController());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(
@@ -33,12 +43,12 @@ class _LoginScreenState extends State<LoginScreen> {
            CustomText('Login Here',style: AppStyles.instance.h1),
 
           (rheight*.05).height,
-          CustomTextField(hintText: 'Mobile Number', icon: Assets.instance.phone,keyboardType: TextInputType.number,maxLength: 10,),
+          CustomTextField(controller: _controller.mobileController,hintText: 'Mobile Number', icon: Assets.instance.phone,keyboardType: TextInputType.number,maxLength: 10,),
           (rheight*.02).height,
 
           (rheight * .08).height,
           CustomButton(name: "Submit", onClick: () {
-            Get.toNamed(RouteName.otpScreen);
+           _controller.sendOTP();
           }),
 
         ],

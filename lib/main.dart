@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sbmela/res/route/routes.dart';
+import 'package:sbmela/utils/prefrence.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await PreferenceManager.instance.init();
+  await PreferenceManager.instance.init();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     systemNavigationBarColor: Colors.black, // navigation bar color
     statusBarColor: Colors.black,

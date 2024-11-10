@@ -54,7 +54,7 @@ class CustomTextField extends StatelessWidget {
               enabled: enable,
               controller: controller,
               obscureText: obscureText,
-              style: const TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 15),
+              style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 15),
               keyboardType: keyboardType,
               inputFormatters: [
                 if (maxLength != null) LengthLimitingTextInputFormatter(maxLength),

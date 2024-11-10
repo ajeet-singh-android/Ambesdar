@@ -19,6 +19,7 @@ import '../../components/app_style.dart';
 import '../../components/custom_buttton.dart';
 import '../../components/custom_text.dart';
 import '../../route/route_name.dart';
+import '../login/login_controller.dart';
 
 
 
@@ -30,9 +31,13 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> {
+  late LoginController _controller;
 
-
-
+  @override
+  void initState() {
+    _controller = Get.put(LoginController());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +56,7 @@ class _OTPScreenState extends State<OTPScreen> {
               ),
               context.mheight(.02),
               CustomText(
-                'OTP has been sent to your phone number\n +91-9796945655',
+                'OTP has been sent to your phone number\n +91-${_controller.mobileController.text}',
                 style: AppStyles.instance.h4.copyWith(fontWeight: FontWeight.w400),maxLines: 2,
               ),
               (rheight * .04).height,
@@ -69,7 +74,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     enabledBorderColor: Colors.white
                   ),
                   onChanged: (pin) {
-                    // _controller.otp = pin;
+                    _controller.otp = pin;
                   },
                 ),
               ),
@@ -128,7 +133,7 @@ class _OTPScreenState extends State<OTPScreen> {
               ),
               (rheight * .08).height,
               CustomButton(name: "Submit", onClick: () {
-                Get.toNamed(RouteName.gravityDriveScreen);
+                _controller.validateOTP();
               }),
             ],
           ).paddingSymmetric(horizontal: rwidth * .06),

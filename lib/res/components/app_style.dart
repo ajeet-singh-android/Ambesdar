@@ -41,7 +41,7 @@ class AppStyles {
   TextStyle h5 = TextStyle(
       fontSize: 13,
       fontWeight: FontWeight.w300,
-      color: Colors.black87,
+      color: Colors.white,
       fontFamily: Assets.instance.fontsAbeze);
 
   TextStyle h6 = TextStyle(
