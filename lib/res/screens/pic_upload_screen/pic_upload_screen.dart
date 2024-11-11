@@ -61,7 +61,7 @@ class _PicUploadScreenState extends State<PicUploadScreen> {
               ],
             ),
             (rheight * .02).height,
-            _cardItem(title: 'Click Pics Out Side & Pics Inside Pics : (0/16)'),
+           Obx(()=> _cardItem(title: 'Click Pics Out Side & Pics Inside Pics : (${_controller.imagelist.where((image) => image.isNotEmpty).length}/${_controller.imagelist.length})')),
             (rheight * .02).height,
             Align(
               alignment: Alignment.topRight,
@@ -199,9 +199,9 @@ class _PicUploadScreenState extends State<PicUploadScreen> {
               child: SizedBox(
                 width: rwidth * .8,
                 child: CustomButton(
-                    name: type=='Pick Up'?"Start Ride":'Complete',
+                    name: type=='Pick Up'?"Start Ride":'Complete Task',
                     onClick: () {
-                      _controller.verifyCustomerOTP(_customer);
+                      name: type=='Pick Up'?_controller.verifyCustomerOTP(_customer,1):_controller.verifyCustomerOTP(_customer,2);
                     }),
               ),
             ),

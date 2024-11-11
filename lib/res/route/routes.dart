@@ -6,6 +6,7 @@ import 'package:sbmela/res/screens/dashboard/dashboard_screen.dart';
 import 'package:sbmela/res/screens/gravitydrive/gravitydrive_screen.dart';
 import 'package:sbmela/res/screens/pic_upload_screen/pic_upload_screen.dart';
 import 'package:sbmela/res/screens/pickup_drop/pickup_drop_location_screen.dart';
+import 'package:sbmela/res/screens/profile/profile_screen.dart';
 import 'package:sbmela/res/screens/selfiscreen/selfi_screen.dart';
 import 'package:sbmela/res/screens/tracking/track_screen.dart';
 
@@ -54,10 +55,10 @@ class Routes{
         transitionDuration: const Duration(milliseconds: 200),
         transition: Transition.rightToLeft
     ),
-    // GetPage(name: RouteName.signupScreen, page: () =>   const SignupScreen(),
-    //     transitionDuration: const Duration(milliseconds: 200),
-    //     transition: Transition.rightToLeft
-    // ),
+    GetPage(name: RouteName.profileScreen, page: () =>   const ProfileScreen(),
+        transitionDuration: const Duration(milliseconds: 200),
+        transition: Transition.rightToLeft
+    ),
     // GetPage(name: RouteName.orderHistoryScreen, page: () =>   const OrderHistoryScreen(),
     //     transitionDuration: const Duration(milliseconds: 200),
     //     transition: Transition.rightToLeft

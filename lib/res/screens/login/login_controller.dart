@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sbmela/data/repository/repository.dart';
 import 'package:sbmela/res/route/route_name.dart';
+import 'package:sbmela/res/screens/dashboard/profile_model.dart';
 import 'package:sbmela/utils/utils.dart';
 
 import '../../../utils/appcons.dart';
@@ -67,13 +68,33 @@ class LoginController extends GetxController{
       if(model.status==1){
         await PreferenceManager.instance.saveString(TOKEN, model.data![0].sId!);
         await PreferenceManager.instance.saveString(AMBESDERID, model.data![0].ambassadorId!);
-        Get.toNamed(RouteName.dashboard_screen);
+        getProfile(model.data![0].sId!);
       }else{
         Utils.instance.showSnackbar('${model.msg}');
       }
 
     }).catchError((onError){
       print(onError);
+      Utils.instance.hideLoading();
+    });
+  }
+
+
+  final profileModel = ProfileModel().obs;
+
+  void getProfile(String autoid){
+    Utils.instance.showLoading();
+    final Map<String,dynamic> request = {
+      "ambassador_auto_id":autoid
+    };
+    _repository.getProfile(request).then((model) async {
+      Utils.instance.hideLoading();
+      profileModel.value = model;
+      await PreferenceManager.instance.saveString(USER_NAME, model.profile![0].name!);
+      await PreferenceManager.instance.saveString(IMAGE, model.profile![0].profileImg!);
+      await PreferenceManager.instance.saveString(MOBILE, model.profile![0].contact!);
+      Get.toNamed(RouteName.dashboard_screen);
+    }).catchError((onError){
       Utils.instance.hideLoading();
     });
   }

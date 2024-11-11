@@ -1,4 +1,5 @@
 
+import 'package:sbmela/res/screens/dashboard/profile_model.dart';
 import 'package:sbmela/res/screens/pickup_drop/ambsder_model.dart';
 import 'package:sbmela/res/screens/tracking/ongoing_order_model.dart';
 
@@ -65,6 +66,24 @@ class Repository{
     dynamic resposne = await _apiService.postApi(data, AppUrl.instance.verifyCustomerApi);
     print(resposne);
     return OTPModel.fromJson(resposne);
+  }
+
+  Future<dynamic> updateDeliveryBoyStatus(var data) async {
+    dynamic resposne = await _apiService.postApi(data, AppUrl.instance.updateDeliveryboyStatusApi);
+    print(resposne);
+    return resposne;
+  }
+
+  Future<dynamic> completeTask(var data) async {
+    dynamic resposne = await _apiService.postApi(data, AppUrl.instance.completeTaskApi);
+    print(resposne);
+    return resposne;
+  }
+
+  Future<ProfileModel> getProfile(var data) async {
+    dynamic resposne = await _apiService.postApi(data, AppUrl.instance.getProfileApi);
+    print(resposne);
+    return ProfileModel.fromJson(resposne);
   }
 
 }

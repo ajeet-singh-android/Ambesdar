@@ -21,4 +21,7 @@ class AppUrl {
   String get addCarImageApi => '$baseUrl/add_car_images';
   String get getCustomerApi => '$baseUrl/getCustOTP';
   String get verifyCustomerApi => '$baseUrl/verifyCustOTP';
+  String get updateDeliveryboyStatusApi => '$baseUrl/update_DeliveryBoyLocation';
+  String get completeTaskApi => '$baseUrl/Complete-Task';
+  String get getProfileApi => '$baseUrl/DeliveryBoy_profile';
 }

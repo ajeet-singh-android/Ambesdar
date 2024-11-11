@@ -56,8 +56,18 @@ class _OTPScreenState extends State<OTPScreen> {
               ),
               context.mheight(.02),
               CustomText(
-                'OTP has been sent to your phone number\n +91-${_controller.mobileController.text}',
-                style: AppStyles.instance.h4.copyWith(fontWeight: FontWeight.w400),maxLines: 2,
+                'OTP has been sent to your phone number\n',
+                style: AppStyles.instance.h4.copyWith(fontWeight: FontWeight.w400),maxLines: 1,
+              ),
+              Row(
+               children: [
+                 CustomText(
+                   '+91-${_controller.mobileController.text}',
+                   style: AppStyles.instance.h4.copyWith(fontWeight: FontWeight.w400),maxLines: 2,
+                 ),
+                 11.width,
+                 const Icon(Icons.edit,size: 21,color: Colors.white,)
+               ],
               ),
               (rheight * .04).height,
               SizedBox(

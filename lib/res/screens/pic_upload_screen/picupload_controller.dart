@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
@@ -16,6 +17,8 @@ class PicuploadController extends GetxController{
   RxList<String> imagelist = List.filled(16, '').obs;
   final _repository = Repository();
   String otp = '';
+
+
 
   String generateRandomFileName() {
     final random = Random();
@@ -51,7 +54,7 @@ class PicuploadController extends GetxController{
     return imagelist.every((item) => item.trim().isNotEmpty && item.isNotEmpty);
   }
 
-  Future<void> uploadCarimage(String taskid) async {
+  Future<void> uploadCarimage(String taskid,int type) async {
 
     if(!isListValid()){
       Utils.instance.showSnackbar('please selected required image');
@@ -69,12 +72,55 @@ class PicuploadController extends GetxController{
     _repository.addCarImage(request,sepratelist[1],sepratelist[0]).then((model) async {
       Utils.instance.hideLoading();
       Utils.instance.showSnackbar('uploaded image');
+
+      if(type==1){
+        startRide_updateStatus();
+      }else{
+        completeTask();
+      }
+
     }).catchError((onError){
       Utils.instance.hideLoading();
     });
   }
 
 
+  Future<void> startRide_updateStatus() async {
+    final ambassadorID = await PreferenceManager.instance.getString(AMBESDERID);
+    // Utils.instance.showLoading();
+    final Map<String,dynamic> request = {
+      "status":'Ongoing_to_Service_Center',
+      "ambassador_id":ambassadorID
+    };
+    _repository.updateDeliveryBoyStatus(request).then((model){
+      Get.back();
+      Utils.instance.hideLoading();
+      Get.back();
+      Navigator.pop(Get.context!);
+    }).catchError((error){
+      Utils.instance.hideLoading();
+    });
+  }
+
+  Future<void> completeTask() async {
+    final ambassadorID = await PreferenceManager.instance.getString(AMBESDERID);
+    Utils.instance.showLoading();
+    final Map<String,dynamic> request = {
+      "status":'Ongoing_to_Service_Center',
+      "ambassador_id":ambassadorID,
+      "task_auto_id":'',
+      "extra_km":'',
+      "payment_status":'',
+      "service_center_auto_id":'',
+      "waiting_time":''
+    };
+    _repository.updateDeliveryBoyStatus(request).then((model){
+      Utils.instance.hideLoading();
+      Get.back();
+    }).catchError((error){
+      Utils.instance.hideLoading();
+    });
+  }
 
 
 
@@ -93,7 +139,7 @@ class PicuploadController extends GetxController{
     });
   }
 
-  Future<void> verifyCustomerOTP(NearestCustomer customer) async {
+  Future<void> verifyCustomerOTP(NearestCustomer customer, int type) async {
 
     if(!isListValid()){
       Utils.instance.showSnackbar('please selected required image');
@@ -120,7 +166,7 @@ class PicuploadController extends GetxController{
     };
     _repository.verifyCustomerOTP(request).then((model){
       Utils.instance.hideLoading();
-      uploadCarimage(customer.taskId??'');
+      uploadCarimage(customer.taskId??'',type);
     }).catchError((error){
       Utils.instance.hideLoading();
     });

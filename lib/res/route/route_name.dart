@@ -8,6 +8,7 @@ class RouteName{
   static const String pickupDropLocationScreen = "/pickupDropLocationScreen";
   static const String picUploadScreen = "/picUploadScreen";
   static const String trackScreen = "/trackScreen";
+  static const String profileScreen = "/profileScreen";
 
 
 }

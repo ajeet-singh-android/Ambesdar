@@ -37,6 +37,8 @@ class _SelfiScreenState extends State<SelfiScreen> {
         children: [
           (rheight * .06).height,
           Container(
+            height: rheight*.42,
+              width: rwidth*.8,
               margin: EdgeInsets.symmetric(horizontal: rwidth * .05),
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
@@ -51,9 +53,10 @@ class _SelfiScreenState extends State<SelfiScreen> {
                           await picker.pickImage(source: ImageSource.camera);
                       if (photo != null) {
                         _controller.selectedSelfi.value = photo!.path ?? '';
+                        _controller.testCompressAndGetFile(File(photo!.path ?? ''));
                       }
                     },
-                    child: Image.file(File(_controller.selectedSelfi.value)))
+                    child: Image.file(File(_controller.selectedSelfi.value),fit: BoxFit.cover,))
                     : Image.asset(Assets.instance.user),
               )),
           (rheight * .09).height,
