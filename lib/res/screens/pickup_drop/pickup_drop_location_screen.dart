@@ -4,6 +4,8 @@ import 'package:sbmela/data/response/status.dart';
 import 'package:sbmela/utils/sizes.dart';
 
 import '../../../main.dart';
+import '../../../utils/appcons.dart';
+import '../../../utils/prefrence.dart';
 import '../../colors/app_color.dart';
 import '../../components/app_style.dart';
 import '../../components/custom_buttton.dart';
@@ -194,9 +196,11 @@ class _PickupDropLocationScreenState extends State<PickupDropLocationScreen> {
               'https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg'),
         ),
         15.width,
-        CustomText('AMB Name',
-            style: AppStyles.instance.h3
-                .copyWith(color: AppColors.instance.whitColor)),
+        FutureBuilder(future: PreferenceManager.instance.getString(USER_NAME), builder: (context,name){
+          return  CustomText(name.data??'',
+              style: AppStyles.instance.h3
+                  .copyWith(color: AppColors.instance.whitColor));
+        }),
         const Spacer(),
         GestureDetector(
           onTap: ()=>Get.toNamed(RouteName.pickupDropLocationScreen),

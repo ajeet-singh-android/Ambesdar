@@ -66,7 +66,9 @@ class _OTPScreenState extends State<OTPScreen> {
                    style: AppStyles.instance.h4.copyWith(fontWeight: FontWeight.w400),maxLines: 2,
                  ),
                  11.width,
-                 const Icon(Icons.edit,size: 21,color: Colors.white,)
+                 GestureDetector(
+                     onTap: ()=>Get.offAllNamed(RouteName.login_screen),
+                     child: const Icon(Icons.edit,size: 21,color: Colors.white,))
                ],
               ),
               (rheight * .04).height,

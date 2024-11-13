@@ -79,12 +79,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
           (rheight * .02).height,
           _cardItem(title: 'Company Credentials'),
           const Spacer(),
-          Obx(() => _cardItem(
-              title: _controller.switchValue.value
-                  ? 'You are online'
-                  : 'You are offline',
-              color:
-                  _controller.switchValue.value ? Colors.green : Colors.red)),
+          Obx(() => GestureDetector(
+            onTap: (){
+              if(_controller.Onlinemsg.value=='Complete your Ongoing Order'){
+                Get.toNamed(RouteName.trackScreen);
+              }
+            },
+            child: _cardItem(
+                title: _controller.switchValue.value
+                    ? _controller.Onlinemsg.value
+                    : 'You are offline',
+                color:
+                    _controller.switchValue.value ? Colors.green : Colors.red),
+          )),
           11.height,
         ],
       ).paddingSymmetric(horizontal: rwidth * .05),

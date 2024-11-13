@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maps_launcher/maps_launcher.dart';
@@ -7,6 +8,8 @@ import 'package:sbmela/res/screens/tracking/tracking_controller.dart';
 import 'package:sbmela/utils/sizes.dart';
 
 import '../../../main.dart';
+import '../../../utils/appcons.dart';
+import '../../../utils/prefrence.dart';
 import '../../colors/app_color.dart';
 import '../../components/app_style.dart';
 import '../../components/custom_buttton.dart';
@@ -148,7 +151,11 @@ class _TrackScreenState extends State<TrackScreen> {
                                   size: 25,
                                 )),
                             5.width,
-                            GestureDetector(
+                            list[0].status=='Ongoing_to_Service_Center'?const Icon(
+                              CupertinoIcons.check_mark,
+                              color: Colors.green,
+                              size: 25,
+                            ) :GestureDetector(
                                 onTap: () => Get.toNamed(
                                     RouteName.picUploadScreen,
                                     arguments: [list[0], 'Pick Up']),
@@ -403,9 +410,11 @@ class _TrackScreenState extends State<TrackScreen> {
               'https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg'),
         ),
         15.width,
-        CustomText('AMB Name',
-            style: AppStyles.instance.h3
-                .copyWith(color: AppColors.instance.whitColor)),
+        FutureBuilder(future: PreferenceManager.instance.getString(USER_NAME), builder: (context,name){
+          return  CustomText(name.data??'',
+              style: AppStyles.instance.h3
+                  .copyWith(color: AppColors.instance.whitColor));
+        }),
         const Spacer(),
         GestureDetector(
           onTap: () => Get.toNamed(RouteName.pickupDropLocationScreen),

@@ -24,4 +24,6 @@ class AppUrl {
   String get updateDeliveryboyStatusApi => '$baseUrl/update_DeliveryBoyLocation';
   String get completeTaskApi => '$baseUrl/Complete-Task';
   String get getProfileApi => '$baseUrl/DeliveryBoy_profile';
+  String get updateTaskStatusApi => '$baseUrl/update_task_status';
+  String get logOutApi => '$baseUrl/logout_ambassador';
 }

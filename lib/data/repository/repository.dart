@@ -86,4 +86,16 @@ class Repository{
     return ProfileModel.fromJson(resposne);
   }
 
+  Future<dynamic> updateTaskStatus(var data) async {
+    dynamic resposne = await _apiService.postApi(data, AppUrl.instance.updateTaskStatusApi);
+    print(resposne);
+    return resposne;
+  }
+
+  Future<dynamic> logOutApi(var data) async {
+    dynamic resposne = await _apiService.postApi(data, AppUrl.instance.logOutApi);
+    print(resposne);
+    return resposne;
+  }
+
 }

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sbmela/res/route/route_name.dart';
 import 'package:sbmela/res/screens/tracking/ongoing_order_model.dart';
 
 import '../../../data/repository/repository.dart';
@@ -54,7 +55,7 @@ class PicuploadController extends GetxController{
     return imagelist.every((item) => item.trim().isNotEmpty && item.isNotEmpty);
   }
 
-  Future<void> uploadCarimage(String taskid,int type) async {
+  Future<void> uploadCarimage(String taskid,int type,String taskautoid,String servicecenterAutoid) async {
 
     if(!isListValid()){
       Utils.instance.showSnackbar('please selected required image');
@@ -74,9 +75,9 @@ class PicuploadController extends GetxController{
       Utils.instance.showSnackbar('uploaded image');
 
       if(type==1){
-        startRide_updateStatus();
+        updateTaskStatus(taskautoid);
       }else{
-        completeTask();
+        completeTask(taskautoid,servicecenterAutoid);
       }
 
     }).catchError((onError){
@@ -85,38 +86,54 @@ class PicuploadController extends GetxController{
   }
 
 
-  Future<void> startRide_updateStatus() async {
+  Future<void> updateTaskStatus(String taskid) async {
     final ambassadorID = await PreferenceManager.instance.getString(AMBESDERID);
-    // Utils.instance.showLoading();
+    Utils.instance.showLoading();
     final Map<String,dynamic> request = {
-      "status":'Ongoing_to_Service_Center',
-      "ambassador_id":ambassadorID
+      "ambassador_id": ambassadorID,
+      "task_auto_id": taskid,
+      'status':'Ongoing_to_Service_Center'
     };
-    _repository.updateDeliveryBoyStatus(request).then((model){
-      Get.back();
+    _repository.updateTaskStatus(request).then((model) async {
       Utils.instance.hideLoading();
-      Get.back();
-      Navigator.pop(Get.context!);
-    }).catchError((error){
+      Get.offAllNamed(RouteName.trackScreen);
+    }).catchError((onError){
       Utils.instance.hideLoading();
     });
   }
 
-  Future<void> completeTask() async {
+  // Future<void> startRide_updateStatus() async {
+  //   final ambassadorID = await PreferenceManager.instance.getString(AMBESDERID);
+  //   // Utils.instance.showLoading();
+  //   final Map<String,dynamic> request = {
+  //     "status":'Ongoing_to_Service_Center',
+  //     "ambassador_id":ambassadorID
+  //   };
+  //   _repository.updateDeliveryBoyStatus(request).then((model){
+  //     Get.back();
+  //     Utils.instance.hideLoading();
+  //     Get.back();
+  //     Navigator.pop(Get.context!);
+  //   }).catchError((error){
+  //     Utils.instance.hideLoading();
+  //   });
+  // }
+
+  Future<void> completeTask(String taskautoid,String servicecenterAutoid) async {
     final ambassadorID = await PreferenceManager.instance.getString(AMBESDERID);
     Utils.instance.showLoading();
     final Map<String,dynamic> request = {
-      "status":'Ongoing_to_Service_Center',
+      "task_auto_id":taskautoid,
+      "extra_km":"0",
       "ambassador_id":ambassadorID,
-      "task_auto_id":'',
-      "extra_km":'',
-      "payment_status":'',
-      "service_center_auto_id":'',
-      "waiting_time":''
+      "status":"Completed",
+      "payment_status":"Pending",
+      "service_center_auto_id":servicecenterAutoid,
+      "waiting_time":"0"
     };
-    _repository.updateDeliveryBoyStatus(request).then((model){
+    _repository.completeTask(request).then((model){
       Utils.instance.hideLoading();
-      Get.back();
+      Get.offAllNamed(RouteName.congratulationScreen);
     }).catchError((error){
       Utils.instance.hideLoading();
     });
@@ -162,14 +179,16 @@ class PicuploadController extends GetxController{
       "contact":customer.custContact,
       "task_id":customer.taskId,
       "ambassador_id":ambassadorID,
-      "otp":"1234"
+      "otp":otp
     };
     _repository.verifyCustomerOTP(request).then((model){
       Utils.instance.hideLoading();
-      uploadCarimage(customer.taskId??'',type);
+      uploadCarimage(customer.taskId??'',type,customer.taskAutoId??"",customer.serviceCenterAutoId??"");
     }).catchError((error){
       Utils.instance.hideLoading();
     });
   }
+
+
 
 }

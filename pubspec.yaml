@@ -52,6 +52,7 @@ dependencies:
   maps_launcher: ^2.2.1
   geolocator:
   geocoding:
+  intl:
 
 dev_dependencies:
   flutter_test:

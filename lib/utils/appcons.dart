@@ -6,4 +6,5 @@ const String IMAGE = 'IMAGE';
 const String MOBILE = 'MOBILE';
 const String PENDING = 'Pending';
 const String APPROVE = 'Approved';
+const String LASTLOGINDATE = "lastLoginDate";
 

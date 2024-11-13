@@ -1,4 +1,10 @@
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../res/screens/splash/splash_screen.dart';
+import 'appcons.dart';
 
 class PreferenceManager {
 
@@ -49,6 +55,28 @@ class PreferenceManager {
     return await _preferences.remove(key);
   }
 
+  Future<void> setLastLoginDate(String date) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(LASTLOGINDATE, date);
+  }
+
+  Future<String?> getLastLoginDate() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(LASTLOGINDATE);
+  }
+
+  Future<void> checkForDailyLogout() async {
+    String todayDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    String? lastLoginDate = await getLastLoginDate();
+
+    if (lastLoginDate == null || lastLoginDate != todayDate) {
+      // Log out the user
+      await PreferenceManager.instance.clear();
+      // Update the last login date to today's date
+      await setLastLoginDate(todayDate);
+      Get.offAll(const SplashScreen());
+    }
+  }
 
 }
 

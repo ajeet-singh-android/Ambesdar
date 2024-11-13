@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    _controller = Get.put(LoginController());
+    _controller = Get.put(LoginController(),permanent: true);
     super.initState();
   }
 

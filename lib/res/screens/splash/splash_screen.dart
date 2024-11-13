@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sbmela/main.dart';
 import 'package:sbmela/utils/utils.dart';
-
-
 import '../../assets/image_assets.dart';
 import '../../route/route_name.dart';
 
@@ -24,8 +22,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Timer(const Duration(seconds: 3), () async {
       Utils.instance.getToken().then((token){
-        // Get.toNamed(RouteName.login_screen);
-        token!=null?Get.toNamed(RouteName.dashboard_screen):Get.toNamed(RouteName.login_screen);
+        // Get.offNamed(RouteName.login_screen);
+        token!=null?Get.offNamed(RouteName.dashboard_screen):Get.offNamed(RouteName.login_screen);
       });
 
     });

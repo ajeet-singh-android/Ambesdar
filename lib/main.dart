@@ -7,6 +7,7 @@ import 'package:sbmela/utils/prefrence.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await PreferenceManager.instance.init();
+  await PreferenceManager.instance.checkForDailyLogout();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     systemNavigationBarColor: Colors.black, // navigation bar color
     statusBarColor: Colors.black,

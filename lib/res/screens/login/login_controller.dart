@@ -68,7 +68,7 @@ class LoginController extends GetxController{
       if(model.status==1){
         await PreferenceManager.instance.saveString(TOKEN, model.data![0].sId!);
         await PreferenceManager.instance.saveString(AMBESDERID, model.data![0].ambassadorId!);
-        getProfile(model.data![0].sId!);
+        getProfile();
       }else{
         Utils.instance.showSnackbar('${model.msg}');
       }
@@ -82,10 +82,11 @@ class LoginController extends GetxController{
 
   final profileModel = ProfileModel().obs;
 
-  void getProfile(String autoid){
+  Future<void> getProfile() async {
+    final taskautoid = await PreferenceManager.instance.getString(TOKEN);
     Utils.instance.showLoading();
     final Map<String,dynamic> request = {
-      "ambassador_auto_id":autoid
+      "ambassador_auto_id":taskautoid
     };
     _repository.getProfile(request).then((model) async {
       Utils.instance.hideLoading();
@@ -133,7 +134,7 @@ class LoginController extends GetxController{
     _repository.sendOTP(request).then((model){
       Utils.instance.hideLoading();
       if(model.status==1){
-        Get.toNamed(RouteName.otpScreen);
+        Get.offNamed(RouteName.otpScreen);
       }else{
         Utils.instance.showSnackbar('${model.msg}');
       }

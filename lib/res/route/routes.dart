@@ -2,6 +2,7 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:sbmela/res/route/route_name.dart';
+import 'package:sbmela/res/screens/congratulation/congratulation_screen.dart';
 import 'package:sbmela/res/screens/dashboard/dashboard_screen.dart';
 import 'package:sbmela/res/screens/gravitydrive/gravitydrive_screen.dart';
 import 'package:sbmela/res/screens/pic_upload_screen/pic_upload_screen.dart';
@@ -59,9 +60,9 @@ class Routes{
         transitionDuration: const Duration(milliseconds: 200),
         transition: Transition.rightToLeft
     ),
-    // GetPage(name: RouteName.orderHistoryScreen, page: () =>   const OrderHistoryScreen(),
-    //     transitionDuration: const Duration(milliseconds: 200),
-    //     transition: Transition.rightToLeft
-    // ),
+    GetPage(name: RouteName.congratulationScreen, page: () =>   const CongratulationScreen(),
+        transitionDuration: const Duration(milliseconds: 200),
+        transition: Transition.rightToLeft
+    ),
   ];
   }
