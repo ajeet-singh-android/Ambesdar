@@ -184,16 +184,19 @@ class _PickupDropLocationScreenState extends State<PickupDropLocationScreen> {
   Widget _profileSection() {
     return Row(
       children: [
-        Container(
-          height: 60,
-          width: 60,
-          padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-              border:
-              Border.all(width: 1.5, color: Colors.grey.withOpacity(.8)),
-              borderRadius: BorderRadius.circular(4)),
-          child: Image.network(
-              'https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg'),
+        GestureDetector(
+        onTap: ()=>Get.toNamed(RouteName.profileScreen),
+          child: Container(
+            height: 60,
+            width: 60,
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+                border:
+                Border.all(width: 1.5, color: Colors.grey.withOpacity(.8)),
+                borderRadius: BorderRadius.circular(4)),
+            child: Image.network(
+                'https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg'),
+          ),
         ),
         15.width,
         FutureBuilder(future: PreferenceManager.instance.getString(USER_NAME), builder: (context,name){
@@ -202,14 +205,7 @@ class _PickupDropLocationScreenState extends State<PickupDropLocationScreen> {
                   .copyWith(color: AppColors.instance.whitColor));
         }),
         const Spacer(),
-        GestureDetector(
-          onTap: ()=>Get.toNamed(RouteName.pickupDropLocationScreen),
-          child: const Icon(
-            Icons.voice_over_off,
-            size: 37,
-            color: Colors.white,
-          ),
-        )
+
       ],
     );
   }
